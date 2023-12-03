@@ -1,4 +1,4 @@
-package main.java.ivanrocka.com;
+package main.java.com.ivanrocka;
 
 public class Key {
     public int i, j;

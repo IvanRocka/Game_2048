@@ -1,29 +1,36 @@
-package main.java.ivanrocka.com;
+package main.java.com.ivanrocka;
 
 import java.util.Random;
 
 public class Game2048 implements Game{
-    GameHelper helper = new GameHelper();
-    Board board;
-    Random random = new Random();
+    SquareBoard board;
+    private GameHelper helper;
+    private Random random;
 
-    public Game2048(Board board) {
+
+    public Game2048(SquareBoard board) {
         this.board = board;
+        this.init();
     }
 
     @Override
     public void init() {
-
+       helper = new GameHelper();
+       random = new Random();
     }
 
     @Override
     public boolean canMove() {
-        return false;
+        return (!this.board.availableSpace().isEmpty());
     }
 
     @Override
     public boolean move(Direction direction) {
-        return false;
+        Direction currDirect = Direction.values()[direction];
+        switch (direction) {
+            case Direction.UP:
+
+        }
     }
 
     @Override
