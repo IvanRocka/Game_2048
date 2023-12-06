@@ -3,6 +3,7 @@ package main.java.com.ivanrocka;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class GameHelper {
     public List<Integer> moveAndMergeEqual(List<Integer> list) {
@@ -13,12 +14,12 @@ public class GameHelper {
             return list;
         }
         else {
-            Iterator<Integer> iterator = list.listIterator();
-            while (iterator.hasNext()) {
-                currentValue = iterator.next();
+            var listIterator = list.listIterator();
+            while (listIterator.hasNext()) {
+                currentValue = listIterator.next();
                 //Если текущее значение null то удалим его из общего списка, потом добавим кол-во null в конец
                 if (currentValue == null) {
-                    list.listIterator().remove();
+                    listIterator.remove();
                     listNull.add(null);
                 }
                 else {
@@ -26,7 +27,9 @@ public class GameHelper {
                     // и если равен, то объединяем в один
                     if(previousValue != null) {
                         if(currentValue==previousValue) {
-                            list.listIterator().set(currentValue+previousValue);
+                            listIterator.set(currentValue+previousValue);
+                            // Установим предыдущий элемент листа в null
+                            list.set(listIterator.previousIndex(), null);
                         }
                         // По идее тут же ссылка обновится после set() и я уже положу в previousValue объединенныое значение!?
                         previousValue = currentValue;

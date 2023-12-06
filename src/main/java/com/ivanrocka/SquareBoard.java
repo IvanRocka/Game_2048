@@ -13,8 +13,8 @@ public class SquareBoard extends Board{
     public void fillBoard(List list) {
         ListIterator<Integer> listIterator = list.listIterator();
         while (listIterator.hasNext()) {
-            for (int i = 0; i < this.width; i++) {
-                for (int j = 0; j < this.height; j++) {
+            for (int i = 0; i < (list.size() - 1); i++) {
+                for (int j = 0; j < (list.size() - 1); j++) {
                     this.addItem(new Key(i,j), listIterator.next());
                 }
             }
@@ -22,6 +22,9 @@ public class SquareBoard extends Board{
 
     }
 
+    /*
+    Возвращает список свободных ключей (i,j) - координат поля
+     */
     @Override
     public List<Key> availableSpace() {
         List<Key> keySpace = new ArrayList<>(); // создаю список куда буду складывать ключи с пустыми значениями (свободные клетки)
@@ -41,27 +44,36 @@ public class SquareBoard extends Board{
 
     @Override
     public void addItem(Key key, Integer value) {
-        this.board.put(key,value);
+        board.put(key,value);
     }
 
+    /*
+    Вернуть ключ по координатам
+     */
     @Override
     public Key getKey(int i, int j) {
         /**!!!!Comment only for me!!!!
          * Тут перебор циклом for-each, элементы те же что и в методе выше
          */
-        for (Map.Entry<Key,Integer> entry : this.board.entrySet()) {
+        for (Map.Entry<Key,Integer> entry : board.entrySet()) {
             if((entry.getKey().getI() == i)&(entry.getKey().getJ() == j)) {
                 return entry.getKey();
             }
         }
         return null;
     }
-
+    /*
+    Вернуть значение текущего ключа
+     */
     @Override
     public Integer getValue(Key key) {
-        return this.board.get(key);
+
+        return board.get(key);
     }
 
+    /*
+    Вернуть список ключей в колонке
+     */
     @Override
     public List<Key> getColumn(int j) {
         List<Key> columnKeys = new ArrayList<>();
@@ -71,6 +83,9 @@ public class SquareBoard extends Board{
         return columnKeys;
     }
 
+    /*
+    Вернуть список ключей в строке по индексу
+     */
     @Override
     public List<Key> getRow(int i) {
         List<Key> columnKeys = new ArrayList<>();
@@ -80,17 +95,24 @@ public class SquareBoard extends Board{
         return columnKeys;
     }
 
+    /*
+    Имеет ли такое поле наша игра
+     */
     @Override
     public boolean hasValue(Integer value) {
-        return this.board.containsValue(value);
+
+        return board.containsValue(value);
     }
 
+    /*
+    Получить список значений по списку ключей
+     */
     @Override
     public List<Integer> getValues(List<Key> keys) {
         List<Integer> row_values = new ArrayList<>();
         ListIterator<Key> listIterator = keys.listIterator();
         while (listIterator.hasNext()) {
-            row_values.add(this.board.get(listIterator.next()));
+            row_values.add(board.get(listIterator.next()));
         }
         return row_values;
     }
