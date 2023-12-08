@@ -11,10 +11,11 @@ public class SquareBoard extends Board{
 
     @Override
     public void fillBoard(List list) {
+        board.clear();
         ListIterator<Integer> listIterator = list.listIterator();
         while (listIterator.hasNext()) {
-            for (int i = 0; i < (list.size() - 1); i++) {
-                for (int j = 0; j < (list.size() - 1); j++) {
+            for (int i = 0; i < getHeight(); i++) {
+                for (int j = 0; j < getWeight(); j++) {
                     this.addItem(new Key(i,j), listIterator.next());
                 }
             }
