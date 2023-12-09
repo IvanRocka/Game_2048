@@ -40,22 +40,18 @@ public class Game2048 implements Game{
                 break;
             case DOWN:
 
-                for(int idx = 0; idx < board.height; idx++) {
-                    List<Integer> boardValues = board.getValues(board.getColumn(idx));
-                    Collections.reverse(boardValues);
-                    board.fillBoard(helper.moveAndMergeEqual(boardValues));
+                for(int idx = board.getHeight(); idx > 0; idx--) {
+                    board.fillBoard(helper.moveAndMergeEqual(board.getValues(board.getColumn(idx))));
                 }
                 break;
             case LEFT:
-                for(int idx = 0; idx < board.height; idx++) {
+                for(int idx = 0; idx < board.width; idx++) {
                     board.fillBoard(helper.moveAndMergeEqual(board.getValues(board.getRow(idx))));
                 }
                 break;
             case RIGHT:
-                for(int idx = 0; idx < board.height; idx++) {
-                    List<Integer> boardValues = board.getValues(board.getRow(idx));
-                    Collections.reverse(boardValues);
-                    board.fillBoard(helper.moveAndMergeEqual(boardValues));
+                for(int idx = board.getWidth(); idx > 0; idx--) {
+                    board.fillBoard(helper.moveAndMergeEqual(board.getValues(board.getRow(idx))));
                 }
                 break;
 

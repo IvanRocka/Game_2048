@@ -15,7 +15,7 @@ public class SquareBoard extends Board{
         ListIterator<Integer> listIterator = list.listIterator();
         while (listIterator.hasNext()) {
             for (int i = 0; i < getHeight(); i++) {
-                for (int j = 0; j < getWeight(); j++) {
+                for (int j = 0; j < getWidth(); j++) {
                     this.addItem(new Key(i,j), listIterator.next());
                 }
             }

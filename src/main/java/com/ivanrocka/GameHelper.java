@@ -7,9 +7,10 @@ import java.util.ListIterator;
 
 public class GameHelper {
     public List<Integer> moveAndMergeEqual(List<Integer> list) {
-        Integer previousValue = null;
+        Integer nextValue = null;
         Integer currentValue = null;
-        List<Integer> listNull = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
+        int count_Null_value = 0;
         if (checkIsEmpty(list)) {
             return list;
         }
@@ -19,31 +20,35 @@ public class GameHelper {
                 currentValue = listIterator.next();
                 //Если текущее значение null то удалим его из общего списка, потом добавим кол-во null в конец
                 if (currentValue == null) {
-                    listIterator.remove();
-                    listNull.add(null);
+                    count_Null_value++;
                 }
                 else {
-                    // Если это не первый элемент списка, то проверим его на равенство предыдущему
-                    // и если равен, то объединяем в один
-                    if(previousValue != null) {
-                        if(currentValue==previousValue) {
-                            listIterator.set(currentValue+previousValue);
-                            // Установим предыдущий элемент листа в null
-                            list.set(listIterator.previousIndex(), null);
+                    // Если есть следующий элемент
+                    if (listIterator.hasNext()) {
+                        // Проверим на наличие null в след элемента
+                        nextValue = listIterator.next();
+                        if (nextValue != null) {
+                            if (currentValue.equals(nextValue)) {
+                                result.add(currentValue + nextValue);
+                                count_Null_value++;
+                            } else {
+                                result.add(currentValue);
+                            }
                         }
-                        // По идее тут же ссылка обновится после set() и я уже положу в previousValue объединенныое значение!?
-                        previousValue = currentValue;
                     }
-                    // Если же это первое значение в списке, то просто обновлю previousValue
+                    // Если же это первое значение в списке или конец списка, то просто добавлю его в result
                     else {
-                        previousValue = currentValue;
+                        result.add(currentValue);
                     }
                 }
             }
             //Прошли по всему списку и добавляем кол-во null значений в конец
-            list.addAll(listNull);
+            while (count_Null_value > 0) {
+                result.add(null);
+                count_Null_value--;
+            }
         }
-        return list;
+        return result;
     }
 
     public boolean checkIsEmpty(List<Integer> list) {

@@ -26,7 +26,7 @@ public abstract class Board {
     public abstract boolean hasValue(Integer value);
     public abstract List<Integer> getValues(List<Key> keys);
 
-    public int getWeight() {
+    public int getWidth() {
         return width;
     }
 
