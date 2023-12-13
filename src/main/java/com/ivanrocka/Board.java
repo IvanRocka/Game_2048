@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Board {
+public abstract class Board<K,V>{
     protected int width, height;  // указываю protected чтобы видели только все классы этого же пакета и все класс-наследники
     protected Map<Key,Integer> board = new HashMap();
 

@@ -8,45 +8,34 @@ import java.util.ListIterator;
 public class GameHelper {
     public List<Integer> moveAndMergeEqual(List<Integer> list) {
         Integer nextValue = null;
+        var current_idx = 0;
+        var next_idx = 0;
         Integer currentValue = null;
         List<Integer> result = new ArrayList<>();
-        int count_Null_value = 0;
+
         if (checkIsEmpty(list)) {
             return list;
         }
-        else {
-            var listIterator = list.listIterator();
-            while (listIterator.hasNext()) {
-                currentValue = listIterator.next();
-                //Если текущее значение null то удалим его из общего списка, потом добавим кол-во null в конец
-                if (currentValue == null) {
-                    count_Null_value++;
-                }
-                else {
-                    // Если есть следующий элемент
-                    if (listIterator.hasNext()) {
-                        // Проверим на наличие null в след элемента
-                        nextValue = listIterator.next();
-                        if (nextValue != null) {
-                            if (currentValue.equals(nextValue)) {
-                                result.add(currentValue + nextValue);
-                                count_Null_value++;
-                            } else {
-                                result.add(currentValue);
-                            }
-                        }
-                    }
-                    // Если же это первое значение в списке или конец списка, то просто добавлю его в result
-                    else {
-                        result.add(currentValue);
-                    }
-                }
+        while (current_idx < list.size()) {
+            currentValue = list.get(current_idx);
+            if (currentValue == null) {
+                current_idx++;
+                continue;
             }
-            //Прошли по всему списку и добавляем кол-во null значений в конец
-            while (count_Null_value > 0) {
-                result.add(null);
-                count_Null_value--;
+            next_idx = current_idx + 1;
+            while (next_idx < list.size() && list.get(next_idx) == null) {
+                next_idx++;
             }
+            if (next_idx < list.size() && currentValue.equals(list.get(next_idx))) {
+                result.add(currentValue * 2);
+                current_idx = next_idx + 1;
+            } else {
+                result.add(currentValue);
+                current_idx = next_idx;
+            }
+        }
+        while (result.size() < list.size()) {
+            result.add(null);
         }
         return result;
     }

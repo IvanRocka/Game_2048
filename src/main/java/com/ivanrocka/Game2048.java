@@ -3,15 +3,16 @@ package main.java.com.ivanrocka;
 import java.util.*;
 
 public class Game2048 implements Game{
-    SquareBoard board;
+    public static final int GAME_SIZE = 4;
+    private Board<Key,Integer> board = new SquareBoard<>(GAME_SIZE);
     private GameHelper helper = new GameHelper();
     private Random random = new Random();
 
 
-    public Game2048(SquareBoard board) {
+    public Game2048(Board<Key,Integer> board) {
         this.board = board;
-        this.init();
     }
+    public Game2048() {}
 
     @Override
     public void init() {
@@ -56,17 +57,30 @@ public class Game2048 implements Game{
                 break;
 
         }
-        return false;
+        try {
+            addItem();
+        } catch (NotEnoughSpace notEnoughSpace) {
+            System.out.println(notEnoughSpace.getMessage());
+        }
+        return true;
     }
 
     @Override
-    public void addItem() {
+    public void addItem() throws NotEnoughSpace {
         List<Key> emptySpaces = board.availableSpace();
-        board.addItem(emptySpaces.get(random.nextInt(emptySpaces.size()-1)), 2);
+        if (emptySpaces.isEmpty()) {
+            throw new NotEnoughSpace("There are no empty place on the board");
+        }
+        if (random.nextFloat() > 0.9) {
+            board.addItem(emptySpaces.get(random.nextInt(emptySpaces.size() - 1)), 4);
+        } else {
+            board.addItem(emptySpaces.get(random.nextInt(emptySpaces.size() - 1)), 2);
+        }
     }
 
     @Override
     public Board getGameBoard() {
+
         return board;
     }
 

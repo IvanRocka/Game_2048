@@ -3,16 +3,19 @@ import main.java.com.ivanrocka.Key;
 
 import java.util.*;
 
-public class SquareBoard extends Board{
+public class SquareBoard<V> extends Board<Key,V>{
     public SquareBoard(int size) {
         super(size,size);
 
     }
 
     @Override
-    public void fillBoard(List list) {
+    public void fillBoard(List<Integer> list) {
         board.clear();
         ListIterator<Integer> listIterator = list.listIterator();
+        if (list.size() > availableSpace().size()) {
+            throw new RuntimeException("The entered number of elements exceeds the number of board places");
+        }
         while (listIterator.hasNext()) {
             for (int i = 0; i < getHeight(); i++) {
                 for (int j = 0; j < getWidth(); j++) {
