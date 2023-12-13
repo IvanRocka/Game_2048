@@ -1,4 +1,8 @@
-package main.java.com.ivanrocka;
+package main.java.com.ivanrocka.Test;
+
+import main.java.com.ivanrocka.Game;
+import main.java.com.ivanrocka.Game2048;
+import main.java.com.ivanrocka.SquareBoard;
 
 import java.util.Arrays;
 
